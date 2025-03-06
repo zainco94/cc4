@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل Plyr متكامل</title>
+    <title>ئئ</title>
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
     <style>
         body {
@@ -22,12 +22,12 @@
 <body>
     <h2>مشغل فيديو Plyr</h2>
     <div class="video-container">
+        <p><strong>مدة الفيديو:</strong> <span class="plyr__time plyr__time--duration" aria-label="Duration">2:15:30</span></p>
         <video id="player" controls poster="https://via.placeholder.com/800x450/000000/FFFFFF?text=Video+Poster">
             <source src="https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4" type="video/mp4">
         </video>
         <p><strong>عنوان الفيديو:</strong> فيديو عشوائي</p>
         <p><strong>الوصف:</strong> هذا فيديو تجريبي للتأكد من عمل المشغل.</p>
-        <p><strong>مدة الفيديو:</strong> <span id="duration">جارِ الحساب...</span></p>
     </div>
     
     <h2>فيديو من YouTube</h2>
@@ -40,18 +40,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const player = new Plyr('#player');
             const youtubePlayer = new Plyr('#youtube-player');
-            
-            player.on('loadedmetadata', () => {
-                document.getElementById('duration').textContent = formatTime(player.duration);
-            });
         });
-        
-        function formatTime(seconds) {
-            const h = Math.floor(seconds / 3600);
-            const m = Math.floor((seconds % 3600) / 60);
-            const s = Math.floor(seconds % 60);
-            return `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-        }
     </script>
 </body>
 </html>

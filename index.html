@@ -3,62 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>333</title>
+    <title>مشغل الفيديو</title>
     <style>
         .video-container {
-            width: 80%;
-            margin: auto;
-            text-align: center;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .video-data {
-            margin-top: 20px;
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
 
 <div class="video-container">
-    <video id="myVideo" controls width="100%" preload="auto">
-        <source src="https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4" type="video/mp4">
+    <video id="myVideo" controls preload="auto">
+        <source src="https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4" type="video/mp4" label="480p">
+        <source src="" type="video/mp4" label="320p">
         متصفحك لا يدعم عنصر الفيديو.
     </video>
-
-    <div class="video-data">
-        <h2 id="videoTitle">فيلم رائع</h2>
-        <p id="videoDescription">هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.</p>
-        <p>المدة: <span id="videoDuration"></span> ثانية</p>
-    </div>
 </div>
+
+<img id="thumbnail" src="https://media.elbalad.news/2025/2/large/880641423067202502030319441944.jpg" alt="صورة مصغرة" style="display: none;">
 
 <script>
     const video = document.getElementById('myVideo');
-    const videoTitle = document.getElementById('videoTitle');
-    const videoDescription = document.getElementById('videoDescription');
-    const videoDuration = document.getElementById('videoDuration');
+    const thumbnail = document.getElementById('thumbnail');
 
-    // قم بتحديث العنوان والوصف هنا
-    videoTitle.textContent = 'فيلم رائع';
-    videoDescription.textContent = 'هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.';
-
-    video.addEventListener('loadedmetadata', function() {
-        const duration = Math.round(video.duration);
-        videoDuration.textContent = duration;
-
-        // إضافة مدة الفيديو كبيانات JSON-LD
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.innerHTML = `
-            {
-              "@context": "https://schema.org",
-              "@type": "VideoObject",
-              "name": "فيلم رائع",
-              "description": "هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.",
-              "duration": "88888"
-            }
-        `;
-        document.querySelector('head').appendChild(script);
+    // إخفاء الصورة المصغرة عند بدء تشغيل الفيديو
+    video.addEventListener('play', function() {
+        thumbnail.style.display = 'none';
     });
+
+    // عرض الصورة المصغرة قبل تشغيل الفيديو
+    if (!video.played) {
+        thumbnail.style.display = 'block';
+        thumbnail.style.width = '100%';
+        thumbnail.style.height = '100vh';
+        thumbnail.style.objectFit = 'cover';
+    }
+
+    // تحديد مدة الفيديو مسبقًا
+    const duration = 86400; // 24 ساعة
+    document.getElementById('duration').textContent = `المدة: ${duration} ثانية`;
+
+    // إضافة JSON-LD لتحسين التفاعل مع محركات البحث
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.innerHTML = `
+        {
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          "name": "فيلم رائع",
+          "description": "هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.",
+          "duration": "PT86400S"
+        }
+    `;
+    document.querySelector('head').appendChild(script);
 </script>
+
+<p id="duration"></p>
 
 </body>
 </html>

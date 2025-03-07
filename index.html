@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل الفيديو</title>
+    <title>سسو</title>
     <style>
         .video-container {
             width: 80%;
@@ -46,10 +46,19 @@
         const seconds = duration % 60;
         videoDuration.textContent = `${minutes} دقيقة و ${seconds} ثانية`;
 
-        // إضافة مدة الفيديو كبيانات ميتا
-        document.querySelector('head').innerHTML += `
-            <meta name="video-duration" content="${minutes} دقيقة و ${seconds} ثانية">
+        // إضافة مدة الفيديو كبيانات JSON-LD
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.innerHTML = `
+            {
+              "@context": "https://schema.org",
+              "@type": "VideoObject",
+              "name": "فيلم رائع",
+              "description": "هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.",
+              "duration": "${minutes}M${seconds}S"
+            }
         `;
+        document.querySelector('head').appendChild(script);
     });
 </script>
 

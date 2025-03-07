@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>asd</title>
+    <title>مشغل الفيديو</title>
     <style>
         .video-container {
             width: 80%;
@@ -26,7 +26,7 @@
     <div class="video-data">
         <h2 id="videoTitle">فيلم رائع</h2>
         <p id="videoDescription">هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.</p>
-        <p>المدة: <span id="videoDuration"></span> ثواني</p>
+        <p>المدة: <span id="videoDuration"></span></p>
     </div>
 </div>
 
@@ -41,7 +41,15 @@
     videoDescription.textContent = 'هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.';
 
     video.addEventListener('loadedmetadata', function() {
-        videoDuration.textContent = Math.round(video.duration);
+        const duration = Math.round(video.duration);
+        const minutes = Math.floor(duration / 60);
+        const seconds = duration % 60;
+        videoDuration.textContent = `${minutes} دقيقة و ${seconds} ثانية`;
+
+        // إضافة مدة الفيديو كبيانات ميتا
+        document.querySelector('head').innerHTML += `
+            <meta name="video-duration" content="${minutes} دقيقة و ${seconds} ثانية">
+        `;
     });
 </script>
 

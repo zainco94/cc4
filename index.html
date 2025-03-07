@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سسو</title>
+    <title>123</title>
     <style>
         .video-container {
             width: 80%;
@@ -26,7 +26,7 @@
     <div class="video-data">
         <h2 id="videoTitle">فيلم رائع</h2>
         <p id="videoDescription">هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.</p>
-        <p>المدة: <span id="videoDuration"></span></p>
+        <p>المدة: <span id="videoDuration"></span> ثانية</p>
     </div>
 </div>
 
@@ -42,9 +42,7 @@
 
     video.addEventListener('loadedmetadata', function() {
         const duration = Math.round(video.duration);
-        const minutes = Math.floor(duration / 60);
-        const seconds = duration % 60;
-        videoDuration.textContent = `${minutes} دقيقة و ${seconds} ثانية`;
+        videoDuration.textContent = duration;
 
         // إضافة مدة الفيديو كبيانات JSON-LD
         const script = document.createElement('script');
@@ -55,7 +53,7 @@
               "@type": "VideoObject",
               "name": "فيلم رائع",
               "description": "هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.",
-              "duration": "${minutes}M${seconds}S"
+              "duration": "PT${duration}S"
             }
         `;
         document.querySelector('head').appendChild(script);

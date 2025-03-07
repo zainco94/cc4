@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل الفيديو</title>
+    <title>ف2</title>
     <style>
         .video-container {
             width: 100%;
@@ -23,13 +23,32 @@
 
 <div class="video-container">
     <video id="myVideo" controls preload="auto">
-        <source src="https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4" type="video/mp4" label="480p">
-        <source src="" type="video/mp4" label="320p">
+        <source src="https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4" type="video/mp4">
         متصفحك لا يدعم عنصر الفيديو.
     </video>
 </div>
 
 <img id="thumbnail" src="https://media.elbalad.news/2025/2/large/880641423067202502030319441944.jpg" alt="صورة مصغرة" style="display: none;">
+
+<div itemscope itemtype="https://schema.org/VideoObject">
+    <h2 itemprop="name">فيلم رائع</h2>
+    <p itemprop="description">هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.</p>
+    <p>المدة: <span itemprop="duration">PT86400S</span></p>
+    <img itemprop="thumbnailUrl" src="https://media.elbalad.news/2025/2/large/880641423067202502030319441944.jpg" />
+    <a itemprop="contentUrl" href="https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4">مشاهدة الفيديو</a>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "فيلم رائع",
+  "description": "هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.",
+  "duration": "PT86400S",
+  "thumbnailUrl": "https://media.elbalad.news/2025/2/large/880641423067202502030319441944.jpg",
+  "contentUrl": "https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4"
+}
+</script>
 
 <script>
     const video = document.getElementById('myVideo');
@@ -47,27 +66,7 @@
         thumbnail.style.height = '100vh';
         thumbnail.style.objectFit = 'cover';
     }
-
-    // تحديد مدة الفيديو مسبقًا
-    const duration = 86400; // 24 ساعة
-    document.getElementById('duration').textContent = `المدة: ${duration} ثانية`;
-
-    // إضافة JSON-LD لتحسين التفاعل مع محركات البحث
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.innerHTML = `
-        {
-          "@context": "https://schema.org",
-          "@type": "VideoObject",
-          "name": "فيلم رائع",
-          "description": "هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.",
-          "duration": "PT86400S"
-        }
-    `;
-    document.querySelector('head').appendChild(script);
 </script>
-
-<p id="duration"></p>
 
 </body>
 </html>

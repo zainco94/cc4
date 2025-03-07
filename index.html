@@ -1,116 +1,142 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مشغل الفيديو</title>
     <style>
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
             margin: 0;
             padding: 20px;
-            background-color: #111827;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            direction: rtl;
         }
-
-        h1 {
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        .video-container {
-            width: 100%;
-            max-width: 800px;
-            background: black;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #1e1e1e;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
-
-        video {
+        .video-container {
+            position: relative;
             width: 100%;
-            display: block;
+            padding-top: 56.25%; /* 16:9 نسبة العرض إلى الارتفاع */
         }
-
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+        .info-container {
+            padding: 20px;
+        }
+        .movie-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #e50914;
+        }
+        .movie-details {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            gap: 20px;
+        }
+        .movie-detail {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .movie-description {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .tag {
+            display: inline-block;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
         .controls {
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.7);
             display: flex;
             gap: 10px;
-            align-items: center;
+            margin-top: 20px;
         }
-
-        button {
-            background: white;
+        .control-btn {
+            background-color: #e50914;
+            color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 15px;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
         }
-
-        button:hover {
-            background: #e0e0e0;
+        .control-btn:hover {
+            background-color: #f40612;
         }
-
-        .time-display {
-            color: white;
-            margin-left: 10px;
+        @media (max-width: 600px) {
+            .movie-details {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>مشغل الفيديو</h1>
-    <div class="video-container">
-        <video id="myVideo" src="https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4"></video>
-        <div class="controls">
-            <button onclick="playPause()">تشغيل/إيقاف</button>
-            <button onclick="makeFullScreen()">ملء الشاشة</button>
-            <span class="time-display" id="timeDisplay">00:00 / 00:00</span>
+    <div class="container">
+        <div class="video-container">
+            <video controls>
+                <source src="/api/placeholder/640/360" type="video/mp4">
+                المتصفح الخاص بك لا يدعم تشغيل الفيديو.
+            </video>
+        </div>
+        <div class="info-container">
+            <div class="movie-title">الحرب العالمية Z</div>
+            <div class="movie-details">
+                <div class="movie-detail">سنة الإنتاج: 2013</div>
+                <div class="movie-detail">المدة: 116 دقيقة</div>
+                <div class="movie-detail">التصنيف: PG-13</div>
+                <div class="movie-detail">التقييم: 7.0/10</div>
+            </div>
+            <div class="movie-description">
+                يلعب براد بيت دور جيري لاين، وهو خبير سابق في الأمم المتحدة يسافر حول العالم في سباق مع الزمن لوقف وباء زومبي يهدد بتدمير الحضارة البشرية. بعد أن ينجو وعائلته بصعوبة من هجوم مفاجئ في مدينة فيلادلفيا، يُكلَّف جيري بمهمة للعثور على مصدر الوباء والمساعدة في تطوير لقاح قبل فوات الأوان. تمتزج المغامرة والإثارة والرعب في هذا الفيلم الذي يقدم رؤية مختلفة لقصص الزومبي التقليدية.
+            </div>
+            <div class="tags">
+                <div class="tag">أكشن</div>
+                <div class="tag">مغامرة</div>
+                <div class="tag">رعب</div>
+                <div class="tag">إثارة</div>
+                <div class="tag">زومبي</div>
+            </div>
+            <div class="controls">
+                <button class="control-btn">تحميل</button>
+                <button class="control-btn">مشاركة</button>
+                <button class="control-btn">إضافة إلى المفضلة</button>
+            </div>
         </div>
     </div>
 
     <script>
-        const video = document.getElementById('myVideo');
-        const timeDisplay = document.getElementById('timeDisplay');
-
-        function playPause() {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
-        }
-
-        function makeFullScreen() {
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.webkitRequestFullscreen) {
-                video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) {
-                video.msRequestFullscreen();
-            }
-        }
-
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            seconds = Math.floor(seconds % 60);
-            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        video.addEventListener('timeupdate', () => {
-            const currentTime = formatTime(video.currentTime);
-            const duration = formatTime(video.duration || 0);
-            timeDisplay.textContent = `${currentTime} / ${duration}`;
-        });
-
-        // تحسين تجربة المستخدم على الموبايل
-        video.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            playPause();
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('video');
+            // تم استخدام صورة بديلة بدلا من رابط الفيديو الحقيقي لأسباب أمنية
+            
+            // إضافة وظائف لأزرار التحكم
+            const buttons = document.querySelectorAll('.control-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    alert('تم النقر على: ' + this.textContent);
+                });
+            });
         });
     </script>
 </body>

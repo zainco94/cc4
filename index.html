@@ -1,72 +1,117 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ف2</title>
+    <title>مشغل الفيديو</title>
     <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
         .video-container {
             width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            max-width: 800px;
+            background: black;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         video {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            display: block;
+        }
+
+        .controls {
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        button {
+            background: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #e0e0e0;
+        }
+
+        .time-display {
+            color: white;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
+    <h1>مشغل الفيديو</h1>
+    <div class="video-container">
+        <video id="myVideo" src="https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4"></video>
+        <div class="controls">
+            <button onclick="playPause()">تشغيل/إيقاف</button>
+            <button onclick="makeFullScreen()">ملء الشاشة</button>
+            <span class="time-display" id="timeDisplay">00:00 / 00:00</span>
+        </div>
+    </div>
 
-<div class="video-container">
-    <video id="myVideo" controls preload="auto">
-        <source src="https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4" type="video/mp4">
-        متصفحك لا يدعم عنصر الفيديو.
-    </video>
-</div>
+    <script>
+        const video = document.getElementById('myVideo');
+        const timeDisplay = document.getElementById('timeDisplay');
 
-<img id="thumbnail" src="https://media.elbalad.news/2025/2/large/880641423067202502030319441944.jpg" alt="صورة مصغرة" style="display: none;">
+        function playPause() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
 
-<div itemscope itemtype="https://schema.org/VideoObject">
-    <h2 itemprop="name">فيلم رائع</h2>
-    <p itemprop="description">هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.</p>
-    <p>المدة: <span itemprop="duration">PT86400S</span></p>
-    <img itemprop="thumbnailUrl" src="https://media.elbalad.news/2025/2/large/880641423067202502030319441944.jpg" />
-    <a itemprop="contentUrl" href="https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4">مشاهدة الفيديو</a>
-</div>
+        function makeFullScreen() {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "فيلم رائع",
-  "description": "هذا فيلم رائع يحتوي على الكثير من الإثارة والمغامرة.",
-  "duration": "PT86400S",
-  "thumbnailUrl": "https://media.elbalad.news/2025/2/large/880641423067202502030319441944.jpg",
-  "contentUrl": "https://aflam-cdn-cash-32-r3d.dialymotion.online/yh5chg6qptikjnl75zekr6jswszz6ra2wrp3mk4tans67h55enbey2vtqkzq/v.mp4"
-}
-</script>
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            seconds = Math.floor(seconds % 60);
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
 
-<script>
-    const video = document.getElementById('myVideo');
-    const thumbnail = document.getElementById('thumbnail');
+        video.addEventListener('timeupdate', () => {
+            const currentTime = formatTime(video.currentTime);
+            const duration = formatTime(video.duration || 0);
+            timeDisplay.textContent = `${currentTime} / ${duration}`;
+        });
 
-    // إخفاء الصورة المصغرة عند بدء تشغيل الفيديو
-    video.addEventListener('play', function() {
-        thumbnail.style.display = 'none';
-    });
-
-    // عرض الصورة المصغرة قبل تشغيل الفيديو
-    if (!video.played) {
-        thumbnail.style.display = 'block';
-        thumbnail.style.width = '100%';
-        thumbnail.style.height = '100vh';
-        thumbnail.style.objectFit = 'cover';
-    }
-</script>
-
+        // تحسين تجربة المستخدم على الموبايل
+        video.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            playPause();
+        });
+    </script>
 </body>
 </html>
